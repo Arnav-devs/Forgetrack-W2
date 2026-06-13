@@ -219,3 +219,6 @@ __marimo__/
 
 #API KEY
 .env
+
+# data file
+history.json
