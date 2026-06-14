@@ -17,6 +17,7 @@ User Interface
 
 # ENTER CITY NAME
 
+```
 ==================================================
          WEATHER REPORT FOR: PUNE
 ==================================================
@@ -27,7 +28,7 @@ Wind Speed : 4.47 km/h
 Air Quality Index: 1 — Good
 Advisory: Air quality is satisfactory.
 ==================================================
-'''
+```
 
 EXAMPLE 1 :-
 
@@ -50,6 +51,6 @@ To exit the program with a goodbye!
 # JSON FILE 
 1. Stores only 5 city and there data
 2. FORMAT - Stores data in dictionaries which itself are inside a list
-3. 
+
 <img width="488" height="472" alt="image" src="https://github.com/user-attachments/assets/f28b2c03-7394-449f-9500-65c678acbc42" />
 
