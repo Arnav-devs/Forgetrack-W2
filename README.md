@@ -2,7 +2,8 @@
 
 This application is a command-line interface (CLI) tool designed to provide real-time weather and air quality monitoring. It aggregates data from the OpenWeatherMap API, allowing users to quickly look up current atmospheric conditions and health-conscious air quality advisories for any global city.
 
-User Interface <img width="474" height="253" alt="image" src="https://github.com/user-attachments/assets/d617cc54-7c85-4a44-b624-b2db9444ad2e" />
+User Interface 
+<img width="474" height="253" alt="image" src="https://github.com/user-attachments/assets/d617cc54-7c85-4a44-b624-b2db9444ad2e" />
 
 # Options 
 1. City Name 
@@ -10,10 +11,11 @@ User Interface <img width="474" height="253" alt="image" src="https://github.com
 3. Exit
 
 # LAST SEARCH FEATURE
+
 <img width="550" height="155" alt="image" src="https://github.com/user-attachments/assets/d40ead3d-3486-44c1-8850-cff3ca98ab56" />
 
 # ENTER CITY NAME
-'''
+
 ==================================================
          WEATHER REPORT FOR: PUNE
 ==================================================
