@@ -5,39 +5,47 @@ from dotenv import load_dotenv
 load_dotenv()
 
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
-print(API_KEY)
 
 def header():
     print("\n")
-    print("=" * 30)
-    print("\tWEATHER APP")
-    print("=" * 30)
+    print("=" * 50)
+    print("\t\tWEATHER APP")
+    print("=" * 50)
 
 def weather_fn(city):
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-    response = requests.get(url)
-    data_py = response.json()
 
-    temp = data_py['main']['temp']
-    feel_like = data_py['main']['feels_like']
+    try:
+        response = requests.get(url)
+        data_py = response.json()
+    except requests.exceptions.RequestException:
+        print("Unable to connect to the weather service.")
+        return None
+
+    if data_py.get("cod") != 200:
+        print("City not found. Please try again.")
+        return None
     
-    humidity = data_py['main']['humidity']
-    
-    condition = data_py['weather'][0]['description']
-    
-    wind_speed = data_py['wind']['speed']
-    
+    temp = data_py.get("main", {}).get("temp", "N/A")
+    feel_like = data_py.get("main", {}).get("feels_like", "N/A")
+    humidity = data_py.get("main", {}).get("humidity", "N/A")
+    condition = data_py.get("weather", [{}])[0].get("description", "N/A")
+    wind_speed = data_py.get("wind", {}).get("speed", "N/A")
 
     lon = data_py['coord']['lon']
     lat = data_py['coord']['lat']
 
 
     url2 = f"https://api.openweathermap.org/data/2.5/air_pollution?lat={lat}&lon={lon}&appid={API_KEY}"
-    response2 = requests.get(url2)
-    data_aqi = response2.json()
+
+    try:
+        response2 = requests.get(url2)
+        data_aqi = response2.json()
+    except requests.exceptions.RequestException:
+        print("Unable to connect to the weather service.")
+        return None
 
     aqi = data_aqi['list'][0]['main']['aqi']
-
 
     aqi_advisory ={
         1:("Good", "Air quality is satisfactory."),
@@ -47,8 +55,6 @@ def weather_fn(city):
         5:("Very Poor","Avoid outdoor activities if possible.")
     }
     status,advisory = aqi_advisory[aqi]
-    
-    
 
     api_data = {
         "city": city,
@@ -82,20 +88,70 @@ def print_weather_fn(city,temp,feel_like,humidity,condition,wind_speed,aqi,statu
     print(f"Air Quality Index: {aqi} — {status}")
     print(f"Advisory: {advisory}")
 
-def history_fn(api_data):
+def history_fn():
+
+    with open ("history.json","r") as file:
+        data = json.load(file)
+
+    print("\n"+"="*57)
+    print(f"{'City':<10}{'Temp(°C)':<10}{'Humidity(%)':<13}{'Wind Speed(km/h)':<20}{'AQI':<7}")
+    print("="*57)
+    for items in data:
+        print(f"{items['city']:<11}"
+              f"{items['temp']:<13}"
+              f"{items['humidity']:<14}"
+              f"{items['wind_speed']:<16}"
+              f"{items['aqi']:<7}")
+    print("="*57)
+
+def last_search():
+    try:
+        with open("history.json", "r") as file:
+            history = json.load(file)
+
+        if history:   
+            last = history[-1]
+
+            print("Last Search:")
+            print(
+                f"{last['city']} | "
+                f"{last['temp']}°C | "
+                f"{last['humidity']}% | "
+                f"{last['wind_speed']} km/h | "
+                f"AQI {last['aqi']} | "
+                f"{last['condition']}"
+            )
+
+    except (FileNotFoundError, json.JSONDecodeError):
+         pass
     
-
 def main():
-
     while True:
-        temp,feel_like,humidity,condition,wind_speed,aqi,status,advisory,api_data =weather_fn(city)
+
         header()
         last_search()
-        city = input("enter city name or history : ")
-        if city == 'history':
-            history_fn(api_data)
-        else :
-            print_weather_fn(city,temp,feel_like,humidity,condition,wind_speed,aqi,status,advisory)
-        
-        
+        print()
 
+        city = input("Enter city name (or 'history'): ")
+
+        if city.lower() == "history":
+            history_fn()
+
+        else:
+            result = weather_fn(city)
+
+            if result is not None:
+                temp, feel_like, humidity, condition, wind_speed, aqi, status, advisory, api_data = result
+                print_weather_fn(
+                    city,
+                    temp,
+                    feel_like,
+                    humidity,
+                    condition,
+                    wind_speed,
+                    aqi,
+                    status,
+                    advisory
+                )
+        
+main()
