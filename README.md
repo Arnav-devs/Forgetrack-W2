@@ -54,3 +54,26 @@ To exit the program with a goodbye!
 
 <img width="488" height="472" alt="image" src="https://github.com/user-attachments/assets/f28b2c03-7394-449f-9500-65c678acbc42" />
 
+# ERROR HANDLING 
+1. INVALID CITY NAME
+
+<img width="551" height="54" alt="image" src="https://github.com/user-attachments/assets/3213499c-e7b4-46a1-8e2c-179a9f78b515" />
+
+<img width="458" height="87" alt="image" src="https://github.com/user-attachments/assets/f4d6520b-3ec6-46bb-81aa-2fd931e9cd4f" />
+
+
+2. FILE NOT FOUND OR LIST NOT FOUND
+
+<img width="493" height="137" alt="image" src="https://github.com/user-attachments/assets/250cc76d-b37e-4eba-b44c-d30a4985d913" />
+
+3. NETWORK ERROR OR SITE NOT REACHABLE
+
+<img width="546" height="165" alt="image" src="https://github.com/user-attachments/assets/e6e65a9e-69e9-45b0-a9aa-7da3e8b5ee10" />
+
+4. PREVENT OVERLOADING
+
+<img width="432" height="30" alt="image" src="https://github.com/user-attachments/assets/45fa8b91-1453-46cf-8e53-1756acf42d7d" />
+
+5. USING .get() FUNCTION TO PREVENT CRASH IF KEY IS INVALID
+
+<img width="682" height="130" alt="image" src="https://github.com/user-attachments/assets/391a174c-700a-4ae9-ab5d-4a6b5ac99547" />
